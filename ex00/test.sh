@@ -6,7 +6,7 @@
 #    By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/07 19:39:54 by JFikents          #+#    #+#              #
-#    Updated: 2024/09/07 20:17:58 by JFikents         ###   ########.fr        #
+#    Updated: 2024/09/07 20:25:17 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,3 +70,5 @@ echo Compiling with invalid database
 make re INVALID_DATABASE=1
 ./btc TransactionBooks/valid/pipe_delimiter
 echo
+echo Reverting to original database
+make re
