@@ -1,13 +1,26 @@
 NAME		=	btc
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++17
+ifdef DEBUG
+CXXFLAGS	+=	-g3 -DDATABASE_FILE=\"./module_09/ex00/data.csv\"
+endif
+ifdef NO_DATABASE
+CXXFLAGS	+=	-DDATABASE_FILE=\"non_existant_database\"
+endif
+ifdef INVALID_DATABASE
+CXXFLAGS	+=	-DDATABASE_FILE=\"invalid_data.csv\"
+endif
 _INCLUDE	=	include
 INCLUDE		=	$(addprefix -I, $(_INCLUDE))
 
-_HEADER		=	BitcoinExchange.hpp
+_HEADER		=	BitcoinExchange.hpp\
+				TransactionBook.hpp\
+				DataBase.hpp\
+				template/DataBase.tpp
 HEADER		=	$(addprefix include/, $(_HEADER))
 _SRC		=	main.cpp\
-				BitcoinExchange.cpp
+				BitcoinExchange.cpp\
+				TransactionBook.cpp
 SRC			=	$(addprefix src/, $(_SRC))
 OBJ			=	$(SRC:src/%.cpp=bin/%.o)
 
@@ -17,7 +30,11 @@ YELLOW		=	\033[0;33m
 CYAN		=	\033[0;36m
 RESET		=	\033[0m
 
+ifdef DEBUG
+all: re
+else
 all: $(NAME)
+endif
 
 $(NAME): $(OBJ)
 	@printf "$(YELLOW)%-80s$(RESET)\r" "Linking $(NAME)..."
@@ -42,6 +59,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@printf "$(GREEN)%-80s$(RESET)\n" "$(NAME) removed!"
 
-re: fclean all
+re: fclean $(NAME)
 
 .PHONY: all clean fclean re
