@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:47:03 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/11 17:33:35 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:50:46 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		std::cerr << "Usage: ./rpn \"<formula>\"" << std::endl;
+		std::cerr << "Usage: " << *argv;
+		std::cerr << " \"<formula in Reverse Polish Notation>\"" << std::endl;
 		return (1);
 	}
 	try

@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:25:01 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/11 20:07:30 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:26:43 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,15 @@ static int	count_operands(std::string const &formula)
 	return (operands);
 }
 
-static void check_validity(std::string const &formula)
+static void check_validity(std::string const &formula, int const &operators_count)
 {
-	int	operators_count;
 	int	operands_count;
 
 	if (formula.empty())
 		throw std::invalid_argument("Empty formula");
 	if (formula.find_first_not_of("0123456789+-*/ ") != std::string::npos)
 		throw RPN::InvalidFormula("Unexpected symbol");
-	if (operators_count = count_operators(formula), operators_count == 0)
+	if (operators_count == 0)
 		throw RPN::InvalidFormula("missing operator");
 	if (operands_count = count_operands(formula), operands_count == 0
 		|| operands_count < operators_count + 1)
@@ -74,7 +73,7 @@ static bool is_in_range(std::string const &token)
 
 RPN::RPN(std::string const &formula) : _operatorCount(count_operators(formula))
 {
-	check_validity(formula);
+	check_validity(formula, _operatorCount);
 	std::string	token;
 	size_t		pos = 0;
 
