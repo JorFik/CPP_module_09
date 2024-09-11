@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:25:01 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/11 18:01:54 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:09:28 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,36 @@ static void check_validity(std::string const &formula)
 		throw RPN::InvalidFormula("too many operands");
 }
 
+static bool is_in_range(std::string const &token)
+{
+	try {
+		std::stoi(token);
+		return (true);
+	}
+	catch (std::exception const &e){
+		return (false);
+	}
+}
+
 RPN::RPN(std::string const &formula)
 {
 	check_validity(formula);
+	std::string token;
+	size_t	pos = 0;
+
+	while (pos = formula.find_first_of("0123456789+-*/", pos), pos != std::string::npos)
+	{
+		token = formula.substr(pos, formula.find_first_of(" ", pos) - pos);
+		if (token.find_first_of("0123456789") != std::string::npos)
+		{
+			if (!is_in_range(token))
+				throw RPN::InvalidFormula("Invalid operand");
+		}
+		else if (token.size() != 1)
+			throw RPN::InvalidFormula("Invalid operator");
+		_formula.push(token);
+		pos += token.size();
+	}
 }
 
 void RPN::calculate()
