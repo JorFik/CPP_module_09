@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:05:23 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/11 16:25:28 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:49:24 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <stdexcept>
 
 class RPN
 {
@@ -28,4 +29,16 @@ public:
 
 	RPN(std::string const &formula);
 	void calculate();
+
+	class InvalidFormula : public std::exception
+	{
+		private:
+			std::string	_message;
+
+		public:
+			InvalidFormula()			= delete;
+			virtual ~InvalidFormula()	= default;
+			InvalidFormula(std::string const &message);
+			virtual const char *what() const noexcept override;
+	};
 };
