@@ -7,7 +7,8 @@ INCLUDE		=	$(addprefix -I, $(_INCLUDE))
 _HEADER		=	RPN.hpp
 HEADER		=	$(addprefix include/, $(_HEADER))
 _SRC		=	main.cpp\
-				RPN.cpp
+				RPN.cpp\
+				RPN_calculate.cpp
 SRC			=	$(addprefix src/, $(_SRC))
 OBJ			=	$(SRC:src/%.cpp=bin/%.o)
 

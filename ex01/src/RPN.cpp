@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:25:01 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/11 19:09:28 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:07:30 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ static bool is_in_range(std::string const &token)
 	}
 }
 
-RPN::RPN(std::string const &formula)
+RPN::RPN(std::string const &formula) : _operatorCount(count_operators(formula))
 {
 	check_validity(formula);
-	std::string token;
-	size_t	pos = 0;
+	std::string	token;
+	size_t		pos = 0;
 
-	while (pos = formula.find_first_of("0123456789+-*/", pos), pos != std::string::npos)
+	while (pos = formula.find_first_not_of(" ", pos), pos != std::string::npos)
 	{
 		token = formula.substr(pos, formula.find_first_of(" ", pos) - pos);
-		if (token.find_first_of("0123456789") != std::string::npos)
+		if (_isNumber(token))
 		{
 			if (!is_in_range(token))
 				throw RPN::InvalidFormula("Invalid operand");
@@ -91,11 +91,6 @@ RPN::RPN(std::string const &formula)
 		_formula.push(token);
 		pos += token.size();
 	}
-}
-
-void RPN::calculate()
-{
-	std::cout << "Result: " << 42 << std::endl;
 }
 
 RPN::InvalidFormula::InvalidFormula(std::string const &message)

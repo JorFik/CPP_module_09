@@ -3,6 +3,7 @@ en.subject.pdf
 
 # Executables
 ex00/btc
+ex01/RPN
 
 # Prerequisites
 *.d
