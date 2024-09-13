@@ -5,8 +5,9 @@ _INCLUDE	=	include
 INCLUDE		=	$(addprefix -I, $(_INCLUDE))
 
 _HEADER		=	PmergeMe.hpp\
-				# template/PmergeMe.tpp\
-				template/binary_search_position.tpp
+				template/PmergeMe.tpp\
+				template/binary_search_position.tpp\
+				# template/initial_split.tpp
 HEADER		=	$(addprefix include/, $(_HEADER))
 _SRC		=	main.cpp\
 				PmergeMe.cpp

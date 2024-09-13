@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:18:10 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/13 20:25:49 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:27:50 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ template <typename IntContainer>
 IntContainer	initial_split(IntContainer &container);
 
 #include "template/PmergeMe.tpp"
-// #include "template/binary_search_position.tpp"
+#include "template/binary_search_position.tpp"
 // #include "template/initial_split.tpp"
