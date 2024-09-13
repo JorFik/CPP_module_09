@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:27:18 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/13 20:24:45 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:29:37 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ford_johnson_deque(std::deque<int> &container)
 		odd_number = container.back();
 		container.pop_back();
 	}
-	// std::deque<int>	sorted = initial_split(container);
-	// print_container(sorted);
+	std::deque<int>	sorted = initial_split(container);
+	print_container(sorted);
 	std::sort(container.begin(), container.end());
 }
 
