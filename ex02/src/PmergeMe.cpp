@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:27:18 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/14 15:03:53 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:25:00 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,100 +31,69 @@ static	int	jacobstahl_number_generator(bool first_time = false)
 	return (jacobstahl_number);
 }
 
+template <typename IntContainer>
+static void	insert_sorted(IntContainer &sorted, int number)
+{
+	auto pos = binary_search_position(sorted, number);
+	sorted.insert(pos, number);
+}
+
 void	ford_johnson_deque(std::deque<int> &container)
 {
-	int	odd_number = -1;
-
-	if (container.size() % 2)
-		odd_number = container.back(), container.pop_back();
 	std::deque<int>	sorted = initial_split(container);
-	if (odd_number != -1)
-	{
-		auto pos = binary_search_position(sorted, odd_number);
-		sorted.insert(pos, odd_number);
-	}
 	int	jacobstahl = jacobstahl_number_generator(true);
-	while (!container.empty())
+
+	for (int iteration = 0;
+		static_cast<size_t>(jacobstahl - iteration) > container.size();
+		++iteration)
 	{
-		if (static_cast<size_t>(jacobstahl) > container.size())
-			break ;
-		auto pos = binary_search_position(sorted, container[jacobstahl]);
-		sorted.insert(pos, container[jacobstahl]);
+		auto jacobstahl_it = container.begin();
+		jacobstahl_it += jacobstahl - iteration;
+		insert_sorted(sorted, *jacobstahl_it);
+		container.erase(jacobstahl_it);
 		jacobstahl = jacobstahl_number_generator();
 	}
-	delete_if_already_sorted(container, sorted);
 	for (auto it = container.begin(); it != container.end(); it++)
-	{
-		auto pos = binary_search_position(sorted, *it);
-		sorted.insert(pos, *it);
-	}
+		insert_sorted(sorted, *it);
 	container = sorted;
 }
 
 void	ford_johnson_list(std::list<int> &container)
 {
-	int	odd_number = -1;
-
-	if (container.size() % 2)
-		odd_number = container.back(), container.pop_back();
 	std::list<int>	sorted = initial_split(container);
-	if (odd_number != -1)
-	{
-		auto pos = binary_search_position(sorted, odd_number);
-		sorted.insert(pos, odd_number);
-	}
 	int	jacobstahl = jacobstahl_number_generator(true);
-	int	iteration = 0;
-	while (!container.empty())
+
+	for (int iteration = 0;
+		static_cast<size_t>(jacobstahl - iteration) > container.size();
+		++iteration)
 	{
-		if (static_cast<size_t>(jacobstahl - iteration) > container.size())
-			break ;
 		auto jacobstahl_it = container.begin();
 		std::advance(jacobstahl_it, jacobstahl - iteration);
-		auto pos = binary_search_position(sorted, *jacobstahl_it);
-		sorted.insert(pos, *jacobstahl_it);
+		insert_sorted(sorted, *jacobstahl_it);
 		container.erase(jacobstahl_it);
 		jacobstahl = jacobstahl_number_generator();
-		iteration++;
 	}
 	for (auto it = container.begin(); it != container.end(); it++)
-	{
-		auto pos = binary_search_position(sorted, *it);
-		sorted.insert(pos, *it);
-	}
+		insert_sorted(sorted, *it);
 	container = sorted;
 }
 
 void	ford_johnson_vector(std::vector<int> &container)
 {
-	int	odd_number = -1;
-
-	if (container.size() % 2)
-		odd_number = container.back(), container.pop_back();
 	std::vector<int>	sorted = initial_split<std::vector<int>>(container);
-	if (odd_number != -1)
-	{
-		auto pos = binary_search_position(sorted, odd_number);
-		sorted.insert(pos, odd_number);
-	}
 	int	jacobstahl = jacobstahl_number_generator(true);
-	int	iteration = 0;
-	while (!container.empty())
+
+	for (int iteration = 0;
+		static_cast<size_t>(jacobstahl - iteration) > container.size();
+		++iteration)
 	{
-		if (static_cast<size_t>(jacobstahl - iteration) > container.size())
-			break ;
 		auto jacobstahl_it = container.begin();
-		std::advance(jacobstahl_it, jacobstahl - iteration);
-		auto pos = binary_search_position(sorted, *jacobstahl_it);
-		sorted.insert(pos, *jacobstahl_it);
+		jacobstahl_it += jacobstahl - iteration;
+		insert_sorted(sorted, *jacobstahl_it);
 		container.erase(jacobstahl_it);
 		jacobstahl = jacobstahl_number_generator();
-		iteration++;
 	}
 	for (auto it = container.begin(); it != container.end(); it++)
-	{
-		auto pos = binary_search_position(sorted, *it);
-		sorted.insert(pos, *it);
-	}
+		insert_sorted(sorted, *it);
 	container = sorted;
 }

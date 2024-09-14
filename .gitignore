@@ -4,6 +4,7 @@ en.subject.pdf
 # Executables
 ex00/btc
 ex01/RPN
+ex02/PmergeMe
 
 # Prerequisites
 *.d

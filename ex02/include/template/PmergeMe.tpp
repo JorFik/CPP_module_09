@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:25:03 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/13 19:31:58 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:42:07 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	print_container(IntContainer const &container)
 template <typename IntContainer>
 void	PmergeMe<IntContainer>::benchmark(void (*sort)(IntContainer &))
 {
-	std::cout << "Before: " << std::flush;
+	std::cout << "Before:\t" << std::flush;
 	print_container(_ints);
 
 	sort(_ints);
 	auto _end = std::chrono::high_resolution_clock::now();
-	std::cout << "After: " << std::flush;
+	std::cout << "After:\t" << std::flush;
 	print_container(_ints);
 	if (_elapsed == -1)
 		_elapsed = std::chrono::duration_cast<std::chrono::microseconds>(_end - _start).count();
