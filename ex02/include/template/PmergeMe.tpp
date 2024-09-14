@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:25:03 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/14 15:42:07 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:38:24 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ PmergeMe<IntContainer>::PmergeMe(char **argv): _elapsed(-1)
 			number = std::stoi(std::string(argv[i]));
 			if (number < 0)
 				throw std::invalid_argument("Negative number");
-			if (std::find(_ints.begin(), _ints.end(), number) != _ints.end())
-				throw std::invalid_argument("Duplicate number");
+			// if (std::find(_ints.begin(), _ints.end(), number) != _ints.end())
+			// 	throw std::invalid_argument("Duplicate number");
 			_ints.push_back(number);
 		}
 	}
