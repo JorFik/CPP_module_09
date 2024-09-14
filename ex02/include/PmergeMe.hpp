@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:18:10 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/13 20:29:31 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:07:24 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void	print_container(IntContainer const &container);
 
 template <typename IntContainer>
 IntContainer	initial_split(IntContainer &container);
+
+template <typename IntContainer>
+void	delete_if_already_sorted(IntContainer &container, IntContainer &sorted);
 
 #include "template/PmergeMe.tpp"
 #include "template/binary_search_position.tpp"
