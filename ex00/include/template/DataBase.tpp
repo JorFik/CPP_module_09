@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:53:36 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/07 19:26:27 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:11:59 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static inline std::string	find_delimiter(std::ifstream &file)
 	std::string	line;
 
 	std::getline(file, line);
+	if (!std::isalpha(line[0]))
+		throw std::runtime_error("Could not find format line");
 	auto start_delimeter = std::find_if(line.begin(), line.end(),
 		[] (char c) {
 			return (!std::isalpha(c));
@@ -112,16 +114,23 @@ DataBase<T>::DataBase(const std::string &filename)
 	delimiter = find_delimiter(file);
 	while (std::getline(file, line))
 	{
-		delimiter_pos = line.find(delimiter);
-		if (delimiter_pos == std::string::npos
-			|| delimiter_pos == 0
-			|| delimiter_pos == line.size() - delimiter.size())
-			throw std::runtime_error("Invalid line format");
-		date = line.substr(0, delimiter_pos);
-		validate_date(date);
-		value = std::stod(line.substr(delimiter_pos + delimiter.size()));
-		if (value < 0)
-			throw std::runtime_error("Invalid value");
+		try {
+			delimiter_pos = line.find(delimiter);
+			if (delimiter_pos == std::string::npos
+				|| delimiter_pos == 0
+				|| delimiter_pos == line.size() - delimiter.size())
+				throw std::runtime_error("Invalid line format");
+			date = line.substr(0, delimiter_pos);
+			validate_date(date);
+			value = std::stod(line.substr(delimiter_pos + delimiter.size()));
+			if (value < 0)
+				throw std::runtime_error("Invalid value");
+		} catch (const std::exception &e) {
+			std::cerr << "Error: " << e.what() << std::endl;
+			std::cerr << "Skipping line: " << line << std::endl;
+			std::cerr << "*********************************" << std::endl;
+			continue ;
+		}
 		_dataBase.insert(std::make_pair(date, value));
 	}
 }

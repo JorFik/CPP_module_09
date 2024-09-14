@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:22:40 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/07 19:32:14 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:11:09 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	TransactionBook::executeTransactions(const BitcoinExchange &exchange)
 			std::cerr << e.what() << std::endl;
 		}
 	}
+	std::cout << "--------------------------------" << std::endl;
 	std::cout << "Final total: " << total << std::endl;
 }

@@ -6,24 +6,30 @@
 #    By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/07 19:39:54 by JFikents          #+#    #+#              #
-#    Updated: 2024/09/07 20:25:17 by JFikents         ###   ########.fr        #
+#    Updated: 2024/09/14 17:12:53 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/bash
 
+YELLOW='\033[3;33m'
+RESET='\033[0m'
+
 # Compile
 make
 
 # Test 1 invalid files
-echo "--------------------------Test 1 invalid files--------------------------"
+echo "------------------------Test 1 files with errors------------------------"
 INVALID_FILES=(TransactionBooks/invalid/*)
 
 for file in "${INVALID_FILES[@]}"
 do
-	./btc "$file"
+	(./btc "$file" 2>&1) > TransactionOutput/$(basename $file).out
 	echo
+	cat TransactionOutput/$(basename $file).out
 done
+
+echo "$YELLOW All output files are available in TransactionOutput$RESET"
 
 # Test 2 valid files
 echo "---------------------------Test 2 valid files---------------------------"
@@ -37,8 +43,6 @@ do
 	cat TransactionOutput/$(basename $file).out
 done
 
-YELLOW='\033[3;33m'
-RESET='\033[0m'
 echo "$YELLOW All output files are available in TransactionOutput$RESET"
 
 # Test 3 invalid arguments
@@ -68,7 +72,10 @@ echo
 echo "-------------------------Test 5 invalid Database-------------------------"
 echo Compiling with invalid database
 make re INVALID_DATABASE=1
-./btc TransactionBooks/valid/pipe_delimiter
+(./btc TransactionBooks/valid/pipe_delimiter 2>&1) > TransactionOutput/invalid_database.out
+cat TransactionOutput/invalid_database.out
 echo
+
 echo Reverting to original database
 make re
+echo "$YELLOW All output files are available in TransactionOutput$RESET"
