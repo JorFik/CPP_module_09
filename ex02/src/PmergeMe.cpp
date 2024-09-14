@@ -6,7 +6,7 @@
 /*   By: JFikents <Jfikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:27:18 by JFikents          #+#    #+#             */
-/*   Updated: 2024/09/14 13:46:53 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:59:26 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,18 @@
 
 static	int	jacobstahl_number_generator(bool first_time = false)
 {
-	static int	jacobstahl_number = 0;
 	static int	jacobstahl_number_1 = 1;
 	static int	jacobstahl_number_2 = 0;
+	int			jacobstahl_number;
 
 	if (first_time)
 	{
-		jacobstahl_number = 0;
 		jacobstahl_number_1 = 1;
 		jacobstahl_number_2 = 0;
 	}
-	else if (jacobstahl_number == 1)
-	{
-		jacobstahl_number = -1;
-		jacobstahl_number_1 = 1;
-		jacobstahl_number_2 = 1;
-		return (1);
-	}
-	else
-	{
-		jacobstahl_number = (2 * jacobstahl_number_2) + jacobstahl_number_1;
-		jacobstahl_number_2 = jacobstahl_number_1;
-		jacobstahl_number_1 = jacobstahl_number;
-	}
+	jacobstahl_number = (2 * jacobstahl_number_2) + jacobstahl_number_1;
+	jacobstahl_number_2 = jacobstahl_number_1;
+	jacobstahl_number_1 = jacobstahl_number;
 	return (jacobstahl_number);
 }
 
